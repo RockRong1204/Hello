@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements MediaPlayer.OnPre
     /**
      * 播放视频的VideoView
      */
-    private VideoView mVideo;
+    private ExpandVideoView mVideo;
     /**
      * VideoView加载资源是否准备好了
      */
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements MediaPlayer.OnPre
     }
 
     private void initView() {
-        mVideo = ((VideoView) findViewById(R.id.video_view));
+        mVideo = ((ExpandVideoView) findViewById(R.id.video_view));
 
         if (mVideo != null) {
             mVideo.setOnPreparedListener(this);
@@ -123,9 +123,6 @@ public class MainActivity extends AppCompatActivity implements MediaPlayer.OnPre
         // 获取屏幕高度
         mScreenHeight = getResources().getDisplayMetrics().heightPixels;
         mScreenWidth = getResources().getDisplayMetrics().widthPixels;
-
-        // 设置VideoView高为屏幕的三分之一
-        mVideo.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mScreenHeight / 3));
 
         mVideo.setOnTouchListener(this);
 
@@ -158,7 +155,6 @@ public class MainActivity extends AppCompatActivity implements MediaPlayer.OnPre
     // 设置准备好了的监听
     @Override
     public void onPrepared(MediaPlayer mp) {
-        mVideo.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         int duration = mVideo.getDuration();
         mTotalTime.setText(CommonUtil.formatTime(duration));
         mPlayerProgress.setMax(duration);
